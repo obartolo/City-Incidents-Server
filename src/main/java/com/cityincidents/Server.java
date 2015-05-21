@@ -1,5 +1,6 @@
 package com.cityincidents;
 
+import com.cityincidents.util.HibernateUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**

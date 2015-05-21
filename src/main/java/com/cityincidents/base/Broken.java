@@ -2,17 +2,16 @@ package com.cityincidents.base;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 /**
- * Created by Oscar on 02/05/2015.
+ * Created by Oscar on 19/05/2015.
  */
 @Entity
 public class Broken {
     private int id;
     private Timestamp date;
-    private List<Person> person;
-    private List<Incident> incident;
+    private Person id_person;
+    private Incident id_incident;
 
     @Id
     @Column(name = "id")
@@ -54,21 +53,23 @@ public class Broken {
         return result;
     }
 
-    @OneToMany(mappedBy = "broken")
-    public List<Person> getPerson() {
-        return person;
+    @ManyToOne
+    @JoinColumn(name = "id_person", referencedColumnName = "id")
+    public Person getId_person() {
+        return id_person;
     }
 
-    public void setPerson(List<Person> person) {
-        this.person = person;
+    public void setId_person(Person id_person) {
+        this.id_person = id_person;
     }
 
-    @OneToMany(mappedBy = "broken")
-    public List<Incident> getIncident() {
-        return incident;
+    @ManyToOne
+    @JoinColumn(name = "id_incident", referencedColumnName = "id")
+    public Incident getId_incident() {
+        return id_incident;
     }
 
-    public void setIncident(List<Incident> incident) {
-        this.incident = incident;
+    public void setId_incident(Incident id_incident) {
+        this.id_incident = id_incident;
     }
 }

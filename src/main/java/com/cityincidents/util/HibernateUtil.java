@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by Oscar on 06/02/2015.
@@ -38,6 +39,8 @@ public class HibernateUtil {
      * @return
      */
     public static Session getCurrentSession() {
+        if (session == null)
+            openSession();
 
         if (!session.isOpen())
             openSession();

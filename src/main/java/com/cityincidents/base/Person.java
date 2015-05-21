@@ -2,9 +2,10 @@ package com.cityincidents.base;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.List;
 
 /**
- * Created by Oscar on 02/05/2015.
+ * Created by Oscar on 19/05/2015.
  */
 @Entity
 public class Person {
@@ -17,9 +18,9 @@ public class Person {
     private String city;
     private String address;
     private byte[] image;
-    private Incident incident;
-    private Broken broken;
-    private Fixed fixed;
+    private Incident incidents;
+    private List<Fixed> fixed;
+    private List<Broken> broken;
 
     @Id
     @Column(name = "id")
@@ -119,14 +120,14 @@ public class Person {
         Person person = (Person) o;
 
         if (id != person.id) return false;
-        if (address != null ? !address.equals(person.address) : person.address != null) return false;
-        if (city != null ? !city.equals(person.city) : person.city != null) return false;
-        if (email != null ? !email.equals(person.email) : person.email != null) return false;
-        if (!Arrays.equals(image, person.image)) return false;
-        if (lastname != null ? !lastname.equals(person.lastname) : person.lastname != null) return false;
         if (name != null ? !name.equals(person.name) : person.name != null) return false;
-        if (pass != null ? !pass.equals(person.pass) : person.pass != null) return false;
+        if (lastname != null ? !lastname.equals(person.lastname) : person.lastname != null) return false;
         if (phone != null ? !phone.equals(person.phone) : person.phone != null) return false;
+        if (email != null ? !email.equals(person.email) : person.email != null) return false;
+        if (pass != null ? !pass.equals(person.pass) : person.pass != null) return false;
+        if (city != null ? !city.equals(person.city) : person.city != null) return false;
+        if (address != null ? !address.equals(person.address) : person.address != null) return false;
+        if (!Arrays.equals(image, person.image)) return false;
 
         return true;
     }
@@ -145,33 +146,30 @@ public class Person {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id_person", nullable = false)
-    public Incident getIncident() {
-        return incident;
+    @OneToOne(mappedBy = "id_person")
+    public Incident getIncidents() {
+        return incidents;
     }
 
-    public void setIncident(Incident incident) {
-        this.incident = incident;
+    public void setIncidents(Incident incidents) {
+        this.incidents = incidents;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id_person", nullable = false)
-    public Broken getBroken() {
-        return broken;
-    }
-
-    public void setBroken(Broken broken) {
-        this.broken = broken;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id_person", nullable = false)
-    public Fixed getFixed() {
+    @OneToMany(mappedBy = "id_person")
+    public List<Fixed> getFixed() {
         return fixed;
     }
 
-    public void setFixed(Fixed fixed) {
+    public void setFixed(List<Fixed> fixed) {
         this.fixed = fixed;
+    }
+
+    @OneToMany(mappedBy = "id_person")
+    public List<Broken> getBroken() {
+        return broken;
+    }
+
+    public void setBroken(List<Broken> broken) {
+        this.broken = broken;
     }
 }

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Oscar on 02/05/2015.
+ * Created by Oscar on 19/05/2015.
  */
 @Entity
 public class Incident {
@@ -18,9 +18,9 @@ public class Incident {
     private String latitude;
     private String longitude;
     private String address;
-    private List<Person> person;
-    private Broken broken;
-    private Fixed fixed;
+    private Person id_person;
+    private List<Fixed> fixed;
+    private List<Broken> broken;
 
     @Id
     @Column(name = "id")
@@ -110,15 +110,15 @@ public class Incident {
         Incident incident = (Incident) o;
 
         if (id != incident.id) return false;
-        if (address != null ? !address.equals(incident.address) : incident.address != null) return false;
-        if (createdate != null ? !createdate.equals(incident.createdate) : incident.createdate != null) return false;
         if (description != null ? !description.equals(incident.description) : incident.description != null)
             return false;
         if (!Arrays.equals(image, incident.image)) return false;
+        if (createdate != null ? !createdate.equals(incident.createdate) : incident.createdate != null) return false;
         if (lastmodificationdate != null ? !lastmodificationdate.equals(incident.lastmodificationdate) : incident.lastmodificationdate != null)
             return false;
         if (latitude != null ? !latitude.equals(incident.latitude) : incident.latitude != null) return false;
         if (longitude != null ? !longitude.equals(incident.longitude) : incident.longitude != null) return false;
+        if (address != null ? !address.equals(incident.address) : incident.address != null) return false;
 
         return true;
     }
@@ -136,32 +136,31 @@ public class Incident {
         return result;
     }
 
-    @OneToMany(mappedBy = "incident")
-    public List<Person> getPerson() {
-        return person;
+    @OneToOne
+    @JoinColumn(name = "id_person", referencedColumnName = "id")
+    public Person getId_person() {
+        return id_person;
     }
 
-    public void setPerson(List<Person> person) {
-        this.person = person;
+    public void setId_person(Person id_person) {
+        this.id_person = id_person;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id_incident", nullable = false)
-    public Broken getBroken() {
-        return broken;
-    }
-
-    public void setBroken(Broken broken) {
-        this.broken = broken;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id_incident", nullable = false)
-    public Fixed getFixed() {
+    @OneToMany(mappedBy = "id_incident")
+    public List<Fixed> getFixed() {
         return fixed;
     }
 
-    public void setFixed(Fixed fixed) {
+    public void setFixed(List<Fixed> fixed) {
         this.fixed = fixed;
+    }
+
+    @OneToMany(mappedBy = "id_incident")
+    public List<Broken> getBroken() {
+        return broken;
+    }
+
+    public void setBroken(List<Broken> broken) {
+        this.broken = broken;
     }
 }

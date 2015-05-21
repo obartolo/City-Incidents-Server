@@ -6,11 +6,11 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:3306/cityincidents</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="connection.password"></property>
     <mapping class="com.cityincidents.base.Broken"/>
     <mapping class="com.cityincidents.base.Fixed"/>
     <mapping class="com.cityincidents.base.Incident"/>
     <mapping class="com.cityincidents.base.Person"/>
-    <!-- DB schema will be updated if needed -->
-    <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>
 </hibernate-configuration>
