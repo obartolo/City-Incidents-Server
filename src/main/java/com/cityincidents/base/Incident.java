@@ -3,10 +3,9 @@ package com.cityincidents.base;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.List;
 
 /**
- * Created by Oscar on 19/05/2015.
+ * Created by Oscar on 23/05/2015.
  */
 @Entity
 public class Incident {
@@ -14,13 +13,10 @@ public class Incident {
     private String description;
     private byte[] image;
     private Timestamp createdate;
-    private Timestamp lastmodificationdate;
     private String latitude;
     private String longitude;
-    private String address;
+    private String title;
     private Person id_person;
-    private List<Fixed> fixed;
-    private List<Broken> broken;
 
     @Id
     @Column(name = "id")
@@ -63,16 +59,6 @@ public class Incident {
     }
 
     @Basic
-    @Column(name = "lastmodificationdate")
-    public Timestamp getLastmodificationdate() {
-        return lastmodificationdate;
-    }
-
-    public void setLastmodificationdate(Timestamp lastmodificationdate) {
-        this.lastmodificationdate = lastmodificationdate;
-    }
-
-    @Basic
     @Column(name = "latitude")
     public String getLatitude() {
         return latitude;
@@ -93,13 +79,13 @@ public class Incident {
     }
 
     @Basic
-    @Column(name = "address")
-    public String getAddress() {
-        return address;
+    @Column(name = "title")
+    public String getTitle() {
+        return title;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setTitle(String address) {
+        this.title = address;
     }
 
     @Override
@@ -114,11 +100,9 @@ public class Incident {
             return false;
         if (!Arrays.equals(image, incident.image)) return false;
         if (createdate != null ? !createdate.equals(incident.createdate) : incident.createdate != null) return false;
-        if (lastmodificationdate != null ? !lastmodificationdate.equals(incident.lastmodificationdate) : incident.lastmodificationdate != null)
-            return false;
         if (latitude != null ? !latitude.equals(incident.latitude) : incident.latitude != null) return false;
         if (longitude != null ? !longitude.equals(incident.longitude) : incident.longitude != null) return false;
-        if (address != null ? !address.equals(incident.address) : incident.address != null) return false;
+        if (title != null ? !title.equals(incident.title) : incident.title != null) return false;
 
         return true;
     }
@@ -129,14 +113,13 @@ public class Incident {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (image != null ? Arrays.hashCode(image) : 0);
         result = 31 * result + (createdate != null ? createdate.hashCode() : 0);
-        result = 31 * result + (lastmodificationdate != null ? lastmodificationdate.hashCode() : 0);
         result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
         result = 31 * result + (longitude != null ? longitude.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_person", referencedColumnName = "id")
     public Person getId_person() {
         return id_person;
@@ -144,23 +127,5 @@ public class Incident {
 
     public void setId_person(Person id_person) {
         this.id_person = id_person;
-    }
-
-    @OneToMany(mappedBy = "id_incident")
-    public List<Fixed> getFixed() {
-        return fixed;
-    }
-
-    public void setFixed(List<Fixed> fixed) {
-        this.fixed = fixed;
-    }
-
-    @OneToMany(mappedBy = "id_incident")
-    public List<Broken> getBroken() {
-        return broken;
-    }
-
-    public void setBroken(List<Broken> broken) {
-        this.broken = broken;
     }
 }

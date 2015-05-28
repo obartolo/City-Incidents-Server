@@ -17,16 +17,25 @@ public class Database {
     }
 
     public Person logIn(String email, String pass){
-        //TODO y si hay dos
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Person Where email = '" + email + "' AND pass = '" + pass + "'" );
 
-        Person person = (Person) query.uniqueResult();
+        Person person;
+
+        List<Person> personList = query.list();
+        if (query.list().size() == 0){
+            return null;
+        }
+        person = personList.get(0);
 
         return person;
     }
 
     public boolean singIn(Person person){
-        //TODO comprobar que no hay otro, si no devolver falso
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Person Where email = '" + person.getEmail() + "'");
+
+        if (query.list().size() >= 1){
+            return false;
+        }
 
         Session session = HibernateUtil.getCurrentSession();
         session.beginTransaction();
@@ -44,16 +53,44 @@ public class Database {
         return incidents;
     }
 
-    public List<Incident> getNearIncidents(String lat, String lon){
-        //TODO añadir where lat long sumando restando unas grados que habra que calcular
-        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Incident WHERE latitude = '" + lat + "' AND longitude = '" + lon + "'");
+    public List<Incident> getMyIncidents(int id){
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Incident WHERE id_person.id = " + id);
 
         List<Incident> incidents = query.list();
 
         return incidents;
     }
 
-    public void addIncident(Incident incident){
+    public Incident getOneIncidents(int id){
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Incident WHERE id = " + id);
+
+        List<Incident> incidents = query.list();
+
+        return incidents.get(0);
+    }
+
+    public List<Incident> getNearIncidents(double lat, double lon){
+        double latTop = lat - 2;
+        double latBotton = lat + 2;
+        double lonTop = lon - 2;
+        double lonBotton = lon + 2;
+
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Incident WHERE latitude BETWEEN  " + latTop + " AND " + latBotton + " AND longitude BETWEEN " + lonTop + " AND " + lonBotton);
+        List<Incident> incidents = query.list();
+
+        return incidents;
+    }
+
+    public void addIncident(Incident incident, int idPerson){
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Person Where id = " + idPerson);
+
+        List<Person> personList = query.list();
+
+        if (personList.size() != 0){
+            incident.setId_person(personList.get(0));
+        }
+
+
         Session session = HibernateUtil.getCurrentSession();
         session.beginTransaction();
         session.save(incident);

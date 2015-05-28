@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Oscar on 19/05/2015.
+ * Created by Oscar on 23/05/2015.
  */
 @Entity
 public class Person {
@@ -17,10 +17,6 @@ public class Person {
     private String pass;
     private String city;
     private String address;
-    private byte[] image;
-    private Incident incidents;
-    private List<Fixed> fixed;
-    private List<Broken> broken;
 
     @Id
     @Column(name = "id")
@@ -102,16 +98,6 @@ public class Person {
         this.address = address;
     }
 
-    @Basic
-    @Column(name = "image")
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -127,7 +113,6 @@ public class Person {
         if (pass != null ? !pass.equals(person.pass) : person.pass != null) return false;
         if (city != null ? !city.equals(person.city) : person.city != null) return false;
         if (address != null ? !address.equals(person.address) : person.address != null) return false;
-        if (!Arrays.equals(image, person.image)) return false;
 
         return true;
     }
@@ -142,34 +127,6 @@ public class Person {
         result = 31 * result + (pass != null ? pass.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (image != null ? Arrays.hashCode(image) : 0);
         return result;
-    }
-
-    @OneToOne(mappedBy = "id_person")
-    public Incident getIncidents() {
-        return incidents;
-    }
-
-    public void setIncidents(Incident incidents) {
-        this.incidents = incidents;
-    }
-
-    @OneToMany(mappedBy = "id_person")
-    public List<Fixed> getFixed() {
-        return fixed;
-    }
-
-    public void setFixed(List<Fixed> fixed) {
-        this.fixed = fixed;
-    }
-
-    @OneToMany(mappedBy = "id_person")
-    public List<Broken> getBroken() {
-        return broken;
-    }
-
-    public void setBroken(List<Broken> broken) {
-        this.broken = broken;
     }
 }

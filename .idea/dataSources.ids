@@ -1,44 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - cityincidents@localhost" uuid="734d4b1f-ed00-48b1-a676-e1cc3173c7c3">
-    <database-info product="MySQL" version="5.6.16" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+  <data-source name="MySQL - cityincidents@localhost" uuid="dc7cd88b-ce1a-4d3b-b71f-50d9e40ab562">
+    <database-info product="MySQL" version="5.6.24" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <schema name="" catalog="cityincidents"/>
-    <table name="broken" schema="" catalog="cityincidents" type="TABLE">
-      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
-      <column name="id_person" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="id_incident" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="broken_ibfk_1" columns="id_person" ref-table="person" ref-schema="" ref-catalog="cityincidents" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="broken_ibfk_2" columns="id_incident" ref-table="incident" ref-schema="" ref-catalog="cityincidents" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-    </table>
-    <table name="fixed" schema="" catalog="cityincidents" type="TABLE">
-      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
-      <column name="id_person" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="id_incident" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="fixed_ibfk_1" columns="id_person" ref-table="person" ref-schema="" ref-catalog="cityincidents" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="fixed_ibfk_2" columns="id_incident" ref-table="incident" ref-schema="" ref-catalog="cityincidents" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-    </table>
     <table name="incident" schema="" catalog="cityincidents" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="description" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
       <column name="image" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
       <column name="createdate" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
-      <column name="lastmodificationdate" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
-      <column name="latitude" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
-      <column name="longitude" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
-      <column name="address" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="latitude" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="longitude" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="title" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <column name="id_person" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="incident_ibfk_1" columns="id_person" ref-table="person" ref-schema="" ref-catalog="cityincidents" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="broken_ibfk_2" table="broken" schema="" catalog="cityincidents" columns="id_incident"/>
-      <exported-key name="fixed_ibfk_2" table="fixed" schema="" catalog="cityincidents" columns="id_incident"/>
     </table>
     <table name="person" schema="" catalog="cityincidents" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -49,10 +28,7 @@
       <column name="pass" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
       <column name="city" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
       <column name="address" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
-      <column name="image" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="broken_ibfk_1" table="broken" schema="" catalog="cityincidents" columns="id_person"/>
-      <exported-key name="fixed_ibfk_1" table="fixed" schema="" catalog="cityincidents" columns="id_person"/>
       <exported-key name="incident_ibfk_1" table="incident" schema="" catalog="cityincidents" columns="id_person"/>
     </table>
   </data-source>
