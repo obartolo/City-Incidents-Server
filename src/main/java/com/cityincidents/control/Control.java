@@ -4,11 +4,7 @@ import com.cityincidents.base.Incident;
 import com.cityincidents.base.Person;
 import com.cityincidents.util.Database;
 import com.cityincidents.util.HibernateUtil;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.util.MultiValueMap;
-
+import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +14,7 @@ import java.util.List;
 public class Control {
 
     @RequestMapping("/singin")
-    public boolean singin(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass){
+    public @ResponseBody boolean singin(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass){
         boolean ok;
         HibernateUtil.buildSessionFactory();
 
@@ -93,17 +89,15 @@ public class Control {
     }
 
     @RequestMapping("/addincident")
-    public boolean addIncident(@RequestParam(value = "title") String address, @RequestParam(value = "description") String description,
-                               @RequestParam(value = "img")  String imgString, @RequestParam(value = "lat") String lat,
+    public @ResponseBody boolean addIncident(@RequestParam(value = "title") String address, @RequestParam(value = "description") String description,
+                               @RequestParam(value = "img")  String image, @RequestParam(value = "lat") String lat,
                                @RequestParam(value = "lon") String lon, @RequestParam(value = "id") int idPerson){
         HibernateUtil.buildSessionFactory();
-        System.out.println(imgString);
-        byte[] img = imgString.getBytes();
 
         Incident incident = new Incident();
         incident.setTitle(address);
         incident.setDescription(description);
-        incident.setImage(img);
+        incident.setImage(image);
         incident.setLatitude(lat);
         incident.setLongitude(lon);
         incident.setCreatedate(new Timestamp(new Date().getTime()));
@@ -112,6 +106,5 @@ public class Control {
 
         return true;
     }
-
 
 }

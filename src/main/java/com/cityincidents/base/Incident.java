@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class Incident {
     private int id;
     private String description;
-    private byte[] image;
+    private String image;
     private Timestamp createdate;
     private String latitude;
     private String longitude;
@@ -40,11 +40,11 @@ public class Incident {
 
     @Basic
     @Column(name = "image")
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -98,7 +98,7 @@ public class Incident {
         if (id != incident.id) return false;
         if (description != null ? !description.equals(incident.description) : incident.description != null)
             return false;
-        if (!Arrays.equals(image, incident.image)) return false;
+        if (image != null ? !image.equals(incident.image) : incident.image != null) return false;
         if (createdate != null ? !createdate.equals(incident.createdate) : incident.createdate != null) return false;
         if (latitude != null ? !latitude.equals(incident.latitude) : incident.latitude != null) return false;
         if (longitude != null ? !longitude.equals(incident.longitude) : incident.longitude != null) return false;
@@ -111,7 +111,7 @@ public class Incident {
     public int hashCode() {
         int result = id;
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (image != null ? Arrays.hashCode(image) : 0);
+        result = 31 * result + (image != null ? image.hashCode() : 0);
         result = 31 * result + (createdate != null ? createdate.hashCode() : 0);
         result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
         result = 31 * result + (longitude != null ? longitude.hashCode() : 0);

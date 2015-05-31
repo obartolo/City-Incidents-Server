@@ -10,13 +10,9 @@ import java.util.List;
 @Entity
 public class Person {
     private int id;
-    private String name;
-    private String lastname;
-    private String phone;
     private String email;
     private String pass;
-    private String city;
-    private String address;
+
 
     @Id
     @Column(name = "id")
@@ -26,36 +22,6 @@ public class Person {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Basic
-    @Column(name = "lastname")
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    @Basic
-    @Column(name = "phone")
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     @Basic
@@ -78,26 +44,6 @@ public class Person {
         this.pass = pass;
     }
 
-    @Basic
-    @Column(name = "city")
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    @Basic
-    @Column(name = "address")
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,13 +52,8 @@ public class Person {
         Person person = (Person) o;
 
         if (id != person.id) return false;
-        if (name != null ? !name.equals(person.name) : person.name != null) return false;
-        if (lastname != null ? !lastname.equals(person.lastname) : person.lastname != null) return false;
-        if (phone != null ? !phone.equals(person.phone) : person.phone != null) return false;
         if (email != null ? !email.equals(person.email) : person.email != null) return false;
         if (pass != null ? !pass.equals(person.pass) : person.pass != null) return false;
-        if (city != null ? !city.equals(person.city) : person.city != null) return false;
-        if (address != null ? !address.equals(person.address) : person.address != null) return false;
 
         return true;
     }
@@ -120,13 +61,8 @@ public class Person {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (pass != null ? pass.hashCode() : 0);
-        result = 31 * result + (city != null ? city.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
 }
